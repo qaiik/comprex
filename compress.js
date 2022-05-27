@@ -14,8 +14,20 @@ function fin(str,len) {
 }
 
 function gap(str) {
-    let cn = 0;
-    
+    let pat = []
+    let ovp = []
+    let ss = str;
+    for (let i = cpx.minPatLe; i<cpx.maxPatLe; i+=1) {
+        fin(str,i).forEach((p)=>{
+            pat.push(p)
+            ovp.push(p)
+        })
+        pat.forEach((p)=>{
+            ss=ss.replaceAll(p,"")
+        })
+        pat=[]
+    }
+    return ovp
 }
 
 
@@ -34,7 +46,7 @@ function* gpc() {
 
 function _cpx(str) {
     let r = gpc()
-    let pat = fin(str);
+    let pat = gap(str);
     let ss = str;
     pat.forEach((pt)=>{
          ss = ss.replaceAll(pt, String.fromCharCode(r.next().value))
@@ -42,6 +54,8 @@ function _cpx(str) {
     return ss
 }
 let comprex = {
-    compress: _cpx
+    compress: _cpx,
+    minPatLe: 2,
+    maxPatLe: 999
 }
-        
+cpx=comprex
